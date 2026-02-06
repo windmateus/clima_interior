@@ -1,9 +1,9 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class NetworkHelper {
+class HttpService {
 
-  NetworkHelper(this.url);
+  HttpService(this.url);
 
   final String url;
 

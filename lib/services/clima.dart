@@ -1,14 +1,13 @@
-import 'package:clima_interior/services/networking.dart';
+import 'package:clima_interior/services/httpservice.dart';
 
-const apiKey = 'SUA_API_KEY';
+const apiKey = 'SUA_API_KEY_AQUI';
 const openWeatherMapURL = 'https://api.openweathermap.org/data/2.5/weather';
 
 class Clima {
 
   Future<dynamic> getClimaLocalidade(double latitude, double longitude) async {
-    NetworkHelper networkHelper = NetworkHelper('$openWeatherMapURL?lat=${latitude}&lon=${longitude}&appid=$apiKey&units=metric');
-
-    var climaData = await networkHelper.getData();
+    HttpService httpService = HttpService('$openWeatherMapURL?lat=${latitude}&lon=${longitude}&appid=$apiKey&units=metric');
+    var climaData = await httpService.getData();
     return climaData;
   }
 

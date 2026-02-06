@@ -15,7 +15,8 @@ class _PainelState extends State<Painel> {
   List<String> localidades = ['Tapuio', 'Açude Novo', 'Cristais', 'Tanques'];
   List<double> latitudes = [-4.518212058306935, -4.5276951480839225, -4.494944727808677, -4.537764764065196];
   List<double> longitudes = [-38.324611647601884, -38.31201350876564, -38.35697036900562, -38.30215778202035];
-  List<int> temperaturas = [0, 0, 0, 0];
+  List<double> temperaturas = [0.0, 0.0, 0.0, 0.0];
+  List<double> sensacoes = [0.0, 0.0, 0.0, 0.0];
   List<String> iconesClima = [' ', ' ', ' ', ' '];
 
   @override
@@ -29,7 +30,8 @@ class _PainelState extends State<Painel> {
         print('Localidade: ${localidades[i]} - Lat: ${latitudes[i]} - Lon: ${longitudes[i]}');
         var climaData = await clima.getClimaLocalidade(latitudes[i], longitudes[i]);
         setState(() {
-          temperaturas[i] = climaData['main']['temp'].toInt();
+          temperaturas[i] = climaData['main']['temp'].toDouble();
+          sensacoes[i] = climaData['main']['feels_like'].toDouble();
           var condition = climaData['weather'][0]['id'];
           iconesClima[i] = clima.getIcone(condition);
         });
@@ -40,38 +42,38 @@ class _PainelState extends State<Painel> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text('PAINEL - Clima no Interior'),
+        backgroundColor: Colors.blueAccent,
+        title: 
+        Center(
+          child: Text('PAINEL - CLIMA NO INTERIOR', textAlign: TextAlign.center),
+        )
       ),
       body: Container(
-        decoration: BoxDecoration(
-
-        ),
         constraints: BoxConstraints.expand(),
         child: SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               SizedBox(
-                height: 120,
+                height: 300,
                 child: Row(                
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Localidade(local: localidades[0], temperatura: temperaturas[0], iconeClima: iconesClima[0]),
-                    Localidade(local: localidades[1], temperatura: temperaturas[1], iconeClima: iconesClima[1]),
+                    Localidade(local: localidades[0], temperatura: temperaturas[0], sensacao: sensacoes[0], iconeClima: iconesClima[0]),
+                    Localidade(local: localidades[1], temperatura: temperaturas[1], sensacao: sensacoes[1], iconeClima: iconesClima[1]),
                   ],
                 ),
               ),
               SizedBox(
-                height: 120,
+                height: 300,
                 child: Row(                
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Localidade(local: localidades[2], temperatura: temperaturas[2], iconeClima: iconesClima[2]),
-                    Localidade(local: localidades[3], temperatura: temperaturas[3], iconeClima: iconesClima[3]),
+                    Localidade(local: localidades[2], temperatura: temperaturas[2], sensacao: sensacoes[2], iconeClima: iconesClima[2]),
+                    Localidade(local: localidades[3], temperatura: temperaturas[3], sensacao: sensacoes[3], iconeClima: iconesClima[3]),
                   ],
                 ),
               )
